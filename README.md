@@ -1,99 +1,101 @@
-🌿 AI-Based Medicinal Plant Identification System (Frontend)
-📌 Project Overview
+# 🌿 AI-Based Medicinal Plant Identification System (Frontend)
 
-This project is part of a research system developed to help users identify Sri Lankan medicinal plants and check their visual health condition using Artificial Intelligence.
+## 📌 Project Overview
+
+This project is part of a **research system** developed to help users identify **Sri Lankan medicinal plants** and check their **visual health condition** using Artificial Intelligence.
 
 The system is mainly useful for:
 
-Young people
+- Young people
+- Ayurvedic students
+- Farmers
+- General users
 
-Ayurvedic students
+Many people do not have enough knowledge to correctly identify medicinal plants.  
+This system helps users identify plants, check plant health, and get general recommendations using a **simple web interface**.
 
-Farmers
+---
 
-General users
+## 🎯 Main Features
 
-Many people do not have enough knowledge to identify medicinal plants correctly.
-This system helps users identify plants, check plant health, and get general recommendations using a simple web interface.
+- Upload medicinal plant images
+- Identify the medicinal plant using AI
+- Check plant health status (**Healthy / Poor**)
+- Display prediction results clearly
+- Get general recommendations to improve plant quality
+- Simple and user-friendly web interface
 
-🎯 Main Features
+---
 
-Upload medicinal plant images
-
-Identify the medicinal plant using AI
-
-Check plant health status (Healthy / Poor)
-
-Display prediction results clearly
-
-Get general recommendations to improve plant quality
-
-Simple and user-friendly web interface
-
-🧠 My Contribution (50% Progress)
+## 🧠 My Contribution (50% Progress)
 
 My individual contribution focuses on:
 
-Training a CNN model using transfer learning
+- Training a **CNN model** using transfer learning
+- Integrating the trained model with a **Flask backend**
+- Connecting the backend with the **frontend**
+- Enabling **real-time image upload and prediction**
 
-Integrating the trained model with a Flask backend
+The system is fully working from:
 
-Connecting the backend with the frontend
+**Frontend → Backend → AI Model → Results**
 
-Enabling real-time image upload and prediction
+---
 
-The system is fully working from frontend → backend → AI model → result.
+## 🖼️ How the System Works
 
-🖼️ How the System Works
+1. User opens the web application
+2. User uploads an image of a medicinal plant
+3. The image is sent to the Flask backend
+4. The AI model processes the image
+5. The system returns:
+   - Plant name
+   - Health status
+   - General recommendations
 
-User opens the web application
+---
 
-User uploads an image of a medicinal plant
+## 🧩 Technologies Used
 
-The image is sent to the Flask backend
+### Frontend
 
-The AI model processes the image
+- HTML
+- CSS
+- JavaScript  
+  _(React can be used in future versions)_
 
-The system returns:
+### Backend
 
-Plant name
+- Flask (Python)
 
-Health status
+### AI / Machine Learning
 
-General recommendations
+- Convolutional Neural Network (CNN)
+- EfficientNet-B1
+- Transfer Learning
+- PyTorch
 
-🧩 Technologies Used
-Frontend
+---
 
-HTML
+## ⚙️ Current Status
 
-CSS
+- ✅ Frontend developed
+- ✅ Flask backend connected
+- ✅ AI model trained and integrated
+- ✅ Real-time predictions working
+- ⏳ More plant species and accuracy improvements in progress
 
-JavaScript
-(or React, if applicable – update if needed)
+---
 
-Backend
+## 👤 Author
 
-Flask (Python)
+**Pasindu Rajapaksha**  
+IT22580108  
+B.Sc. (Hons) Information Technology  
+Sri Lanka Institute of Information Technology (SLIIT)
 
-AI / Machine Learning
+---
 
-Convolutional Neural Network (CNN)
+## 📜 License
 
-EfficientNet-B1
-
-Transfer Learning
-
-PyTorch
-
-⚙️ Current Status
-
-✅ Frontend developed
-
-✅ Flask backend connected
-
-✅ AI model trained and integrated
-
-✅ Real-time predictions working
-
-⏳ More plant species and accuracy improvements in progress
+This project is developed for **academic and research purposes**.
