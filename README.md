@@ -1,16 +1,99 @@
-# React + Vite
+🌿 AI-Based Medicinal Plant Identification System (Frontend)
+📌 Project Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is part of a research system developed to help users identify Sri Lankan medicinal plants and check their visual health condition using Artificial Intelligence.
 
-Currently, two official plugins are available:
+The system is mainly useful for:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Young people
 
-## React Compiler
+Ayurvedic students
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Farmers
 
-## Expanding the ESLint configuration
+General users
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Many people do not have enough knowledge to identify medicinal plants correctly.
+This system helps users identify plants, check plant health, and get general recommendations using a simple web interface.
+
+🎯 Main Features
+
+Upload medicinal plant images
+
+Identify the medicinal plant using AI
+
+Check plant health status (Healthy / Poor)
+
+Display prediction results clearly
+
+Get general recommendations to improve plant quality
+
+Simple and user-friendly web interface
+
+🧠 My Contribution (50% Progress)
+
+My individual contribution focuses on:
+
+Training a CNN model using transfer learning
+
+Integrating the trained model with a Flask backend
+
+Connecting the backend with the frontend
+
+Enabling real-time image upload and prediction
+
+The system is fully working from frontend → backend → AI model → result.
+
+🖼️ How the System Works
+
+User opens the web application
+
+User uploads an image of a medicinal plant
+
+The image is sent to the Flask backend
+
+The AI model processes the image
+
+The system returns:
+
+Plant name
+
+Health status
+
+General recommendations
+
+🧩 Technologies Used
+Frontend
+
+HTML
+
+CSS
+
+JavaScript
+(or React, if applicable – update if needed)
+
+Backend
+
+Flask (Python)
+
+AI / Machine Learning
+
+Convolutional Neural Network (CNN)
+
+EfficientNet-B1
+
+Transfer Learning
+
+PyTorch
+
+⚙️ Current Status
+
+✅ Frontend developed
+
+✅ Flask backend connected
+
+✅ AI model trained and integrated
+
+✅ Real-time predictions working
+
+⏳ More plant species and accuracy improvements in progress
