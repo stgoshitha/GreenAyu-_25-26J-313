@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --primary: #22c55e;
+  --primary-dark: #166534;
+  --bg: #060a06;
+  --bg-surface: #0d120d;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,0.5);
+  --muted2: rgba(255,255,255,0.25);
+  --border: rgba(255,255,255,0.07);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #060a06;
+  color: #ffffff;
+  min-width: 320px;
+  min-height: 100vh;
+  line-height: 1.5;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
+}
+
+button {
+  font-family: 'Inter', inherit;
+  cursor: pointer;
+}
+
+input, select, textarea {
+  font-family: 'Inter', inherit;
+}
+
+/* Utility: Page title blocks used inside feature pages */
+.page-head {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+.page-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 12px;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+/* Leaflet Map fix */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Sweetalert2 dark theme fix */
+.swal2-popup {
+  background: #0d120d !important;
+  color: white !important;
+  border: 1px solid rgba(34,197,94,0.15) !important;
+}
+
+/* Scroll bar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e0a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34,197,94,0.3);
+}
+
+/* Header & Nav Responsiveness */
+@media (max-width: 980px) {
+  .nav-desktop, .auth-desktop {
+    display: none !important;
+  }
+  .mobile-toggle {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 480px) {
+  div[style*="repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 64px;
+  height: 64px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+  z-index: 9999;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1) rotate(5deg);
+  background-color: #128C7E;
+}
+
+@media (max-width: 600px) {
+  .whatsapp-float {
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+  }
+}
