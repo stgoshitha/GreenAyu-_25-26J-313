@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import Container from "../../components/layout/Container";
 import { sensorService } from "../../services/sensorService";
-import { AuthContext } from "../../App";
 import { validateAndDeductCredits } from "../../utils/creditValidator";
 
 const PART_ID_URL = "/api/plant-part";
@@ -125,7 +124,6 @@ const getQualityText = (grade, confidence = 0) => {
 
 
 export default function PartsQuality() {
-  const auth = React.useContext(AuthContext);
   const [file, setFile] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState(null);
@@ -159,10 +157,6 @@ export default function PartsQuality() {
 
   const handleAnalyze = async () => {
     if (!file) return;
-
-    // ── CREDIT VALIDATION ──
-    const canProceed = await validateAndDeductCredits(auth, "Product Identification & Grading Grading");
-    if (!canProceed) return;
 
     setIsAnalyzing(true);
     setError("");

@@ -10,7 +10,6 @@ import {
 import Container from "../../components/layout/Container";
 import { weatherService } from "../../services/weatherService";
 import { sensorService } from "../../services/sensorService";
-import { AuthContext } from "../../App";
 import { validateAndDeductCredits } from "../../utils/creditValidator";
 
 const DETECT_URL = "/api/plant/detect";
@@ -246,7 +245,6 @@ function calculateHealthQuality(healthClass, healthConf, diseaseType, diseaseCon
 }
 
 export default function IdentifyHealth() {
-  const auth = React.useContext(AuthContext);
   const [plantName, setPlantName] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [result, setResult] = useState(null);
@@ -293,10 +291,6 @@ export default function IdentifyHealth() {
       setError("Please upload an image file (JPG/PNG/WEBP).");
       return;
     }
-
-    // ── CREDIT VALIDATION ──
-    const canProceed = await validateAndDeductCredits(auth, "Plant ID & Health Check");
-    if (!canProceed) return;
 
     setIsScanning(true);
 

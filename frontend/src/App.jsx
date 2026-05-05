@@ -221,11 +221,11 @@ export default function App() {
               />
               <Route
                 path="/features/identify-health"
-                element={<ProtectedRoute><IdentifyHealth /></ProtectedRoute>}
+                element={<IdentifyHealth />}
               />
               <Route
                 path="/features/parts-quality"
-                element={<ProtectedRoute><PartsQuality /></ProtectedRoute>}
+                element={<PartsQuality />}
               />
               <Route
                 path="/features/dry-storage"
