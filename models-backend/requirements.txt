@@ -1,0 +1,27 @@
+﻿# ── Web framework ────────────────────────────────────────────
+Flask==3.0.3
+flask-cors==4.0.1
+Flask-MQTT==1.1.1        
+
+# ── Deep learning ────────────────────────────────────────────
+torch==2.2.2              
+torchvision==0.17.2
+efficientnet-pytorch==0.7.1
+
+# ── Classical ML / pipelines ─────────────────────────────────
+scikit-learn==1.4.2
+joblib==1.4.2
+
+# ── Data handling ────────────────────────────────────────────
+pandas==2.2.2
+numpy==1.26.4
+
+# ── Image processing ─────────────────────────────────────────
+Pillow==10.3.0
+
+# ── MQTT client (used by Flask-MQTT) ─────────────────────────
+paho-mqtt==1.6.1
+
+python-dotenv
+pydantic
+xgboost
