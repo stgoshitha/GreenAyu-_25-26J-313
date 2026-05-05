@@ -13,7 +13,7 @@ const footerLinks = {
     { label: "FAQ", to: "/faq" }
   ],
   "AI Features": [
-    { label: "Botanical Diagnostic", to: "/features/identify-health" },
+    { label: "Identify & Health Matrix", to: "/features/identify-health" },
     { label: "Product Identification & Grading", to: "/features/parts-quality" },
     { label: "Smart Dry & Store", to: "/features/dry-storage" },
     { label: "Fertilizer Recommendation", to: "/features/yield-optimization" },

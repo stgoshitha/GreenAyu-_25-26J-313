@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 
 // ──── Data ────
 const features = [
-  { icon: <Activity size={24} />, title: "Botanical Diagnostic", desc: "AI-powered plant identification and real-time disease detection from a single photo.", to: "/features/identify-health", color: "#22c55e" },
+  { icon: <Activity size={24} />, title: "Identify & Health Matrix", desc: "AI-powered plant identification and real-time disease detection from a single photo.", to: "/features/identify-health", color: "#22c55e" },
   { icon: <Microscope size={24} />, title: "Product Identification & Grading", desc: "Grade medicinal plant parts across 4 quality tiers using computer vision.", to: "/features/parts-quality", color: "#3b82f6" },
   { icon: <Clock size={24} />, title: "Smart Dry & Store", desc: "AI-driven drying time and shelf-life prediction for maximum preservation.", to: "/features/dry-storage", color: "#f59e0b" },
   { icon: <BarChart3 size={24} />, title: "Fertilizer Recommendation", desc: "Synthesize NPK soil data, weather and crop type for production forecasts.", to: "/features/yield-optimization", color: "#a855f7" },
@@ -556,7 +556,7 @@ export default function Home() {
 
           <div style={{ maxWidth: "800px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
-              { q: "How accurate is the botanical diagnostic AI?", a: "Our models have been trained on verified datasets specific to South Asian botanical species, achieving an average accuracy of 94% on critical medicinal species." },
+              { q: "How accurate is the Identify & Health Matrix AI?", a: "Our models have been trained on verified datasets specific to South Asian botanical species, achieving an average accuracy of 94% on critical medicinal species." },
               { q: "Do I need an internet connection in the field?", a: "The web application requires internet to process images. However, you can cache sensor data offline and it will automatically sync when you regain cellular coverage." },
               { q: "How do AI credits work?", a: "One credit equals one distinct AI operation. Credits never expire and remain in your account indefinitely, giving you full flexibility." },
               { q: "Which soil sensors are compatible?", a: "GreenAyu's telemetry engine accepts data from any standard MQTT-enabled agricultural sensor array (Arduino, ESP32, etc)." }

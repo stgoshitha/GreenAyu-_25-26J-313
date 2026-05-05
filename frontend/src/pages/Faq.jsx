@@ -12,7 +12,7 @@ export default function Faq() {
     {
       category: "Platform & AI Models",
       items: [
-        { q: "How accurate is the botanical diagnostic AI?", a: "Our models have been trained on verified datasets specific to South Asian botanical species, achieving an average accuracy of 94% on 5 critical disease types." },
+        { q: "How accurate is the Identify & Health Matrix AI?", a: "Our models have been trained on verified datasets specific to South Asian botanical species, achieving an average accuracy of 94% on 5 critical disease types." },
         { q: "Can the AI identify diseases before they are visible?", a: "While the primary computer vision model relies on visual symptoms, our Yield and Telemetry integration can alert you to soil/environmental conditions that historically predict fungal outbreaks before they occur." },
         { q: "Do I need an internet connection in the field?", a: "Yes and no. The web application requires internet to process images. However, you can cache sensor data offline and it will automatically sync when you regain cellular or Wi-Fi coverage." }
       ]

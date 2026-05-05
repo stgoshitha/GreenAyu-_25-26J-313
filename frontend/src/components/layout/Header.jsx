@@ -18,7 +18,7 @@ const nav = [
 
 const features = [
   { to: "/features/telemetry", label: "Telemetry Intelligence", icon: <Gauge size={16} />, desc: "Live sensor & weather hub" },
-  { to: "/features/identify-health", label: "Botanical Diagnostic", icon: <Activity size={16} />, desc: "Plant ID & Health scan" },
+  { to: "/features/identify-health", label: "Identify & Health Matrix", icon: <Activity size={16} />, desc: "Plant ID & Health scan" },
   { to: "/features/parts-quality", label: "Product Identification & Grading", icon: <Microscope size={16} />, desc: "Gradient grading engine" },
   { to: "/features/dry-storage", label: "Smart Dry & Store", icon: <Clock size={16} />, desc: "Preservation AI lifecycle" },
   { to: "/features/yield-optimization", label: "Fertilizer Recommendation", icon: <BarChart3 size={16} />, desc: "NPK & weather forecast" },

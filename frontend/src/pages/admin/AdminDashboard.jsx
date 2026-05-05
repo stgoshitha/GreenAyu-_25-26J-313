@@ -55,7 +55,7 @@ export default function AdminDashboard() {
       <div style={chartSection}>
         <div style={recentActivity}>
           <h3 style={sectionTitle}>System Overview</h3>
-          <p style={sectionSubtitle}>Real-time analysis of botanical diagnostics and credit usage.</p>
+          <p style={sectionSubtitle}>Real-time analysis of Identify & Health Matrixs and credit usage.</p>
           <div style={placeholderChart}>
               <div style={barContainer}>
                 {stats.chartData.map((day, i) => (
