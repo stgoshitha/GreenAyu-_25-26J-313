@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://lure-clicker-purging.ngrok-free.dev',
 });
 
 // Add a request interceptor to include JWT token
