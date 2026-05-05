@@ -241,12 +241,6 @@ export default function YieldOptimization() {
                                     <span style={subLabel}>Terrain Profile</span>
                                     <div style={flexRow}>
                                         <div style={half}>
-                                            <label style={fLabel}>Regional Zone</label>
-                                            <select style={fInput} value={form.Region} onChange={e => setForm({ ...form, Region: e.target.value })}>
-                                                <option>West</option><option>East</option><option>North</option><option>South</option>
-                                            </select>
-                                        </div>
-                                        <div style={half}>
                                             <label style={fLabel}>Soil Composition</label>
                                             <select style={fInput} value={form.Soil_Type} onChange={e => setForm({ ...form, Soil_Type: e.target.value })}>
                                                 <option>Sandy</option><option>Loam</option><option>Clay</option><option>Peaty</option>
@@ -259,6 +253,8 @@ export default function YieldOptimization() {
                                             <option value="Ruk_Aguna">Ruk Aguna</option>
                                             <option value="Pawatta">Pawatta</option>
                                             <option value="SuduHandun">Sudu Handun</option>
+                                            <option value="Iramusu">Iramusu</option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -437,7 +433,7 @@ const half = { flex: 1 };
 const fLabel = { display: 'block', fontSize: '11px', fontWeight: 800, color: '#64748b', marginBottom: '8px' };
 const fInput = { width: '100%', padding: '14px', borderRadius: '14px', border: '1px solid #f1f5f9', outline: 'none', background: 'white', fontSize: '14px', fontWeight: 700 };
 
-const npkGrid = { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' };
+const npkGrid = { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' };
 const npkItem = { background: 'white', padding: '16px', borderRadius: '16px', border: '1px solid #f1f5f9', textAlign: 'center' };
 const npkLabel = { fontSize: '12px', fontWeight: 900, marginBottom: '8px' };
 const npkVal = { width: '100%', border: 'none', textAlign: 'center', fontSize: '24px', fontWeight: 900, outline: 'none', background: 'transparent' };

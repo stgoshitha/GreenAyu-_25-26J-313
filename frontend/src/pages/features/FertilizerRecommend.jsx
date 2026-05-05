@@ -119,7 +119,7 @@ export default function FertilizerRecommend() {
               </div>
 
               {/* API fields */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 18 }}>
+              <div style={{   display: "grid",gridTemplateColumns: "1.2fr 1.2fr",gap: 12,marginBottom: 18}}>
                 <Field
                   label="Temperature"
                   suffix="°C"
