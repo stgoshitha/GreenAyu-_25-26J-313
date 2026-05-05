@@ -120,7 +120,7 @@ const getQualityDisplayScore = (grade, confidence = 0) => {
 };
 
 const getQualityText = (grade, confidence = 0) => {
-  return `${grade} • ${(Number(confidence || 0) * 100).toFixed(1)}% model confidence`;
+  return ``;
 };
 
 
@@ -286,7 +286,7 @@ export default function PartsQuality() {
               {!file ? (
                 <div style={dropContent}>
                   <div style={cameraCircleStyle}><Camera size={32} /></div>
-                  <h4 style={dropTitle}>Upload Plant Part Image</h4>
+                  <h4 style={dropTitle}>Upload Plant Part Product Image</h4>
                   <p style={dropDesc}>Supports dried herbs, bark, roots, leaves & powders</p>
                   <div style={{ display: 'flex', gap: '12px', marginTop: '8px', zIndex: 10 }}>
                     <label htmlFor="pq-file-upload" style={{
@@ -454,7 +454,7 @@ export default function PartsQuality() {
                                 color: "#dc2626", // red text
                               }}
                             >
-                              Other - Not Plant Part
+                              Other - Not Plant Part Product
                             </div>
                           </div>
                         </div>
@@ -544,7 +544,7 @@ export default function PartsQuality() {
                       <div style={visualGradientStyle}>
                         <QualityPointer
                           score={result.score}
-                          label={`${result.grade} ${result.modelConfidence}%`}
+                          label={`${result.grade}`}
                           color={result.gradeConfig.color}
                         />
                         <div style={gradBarStyle} />

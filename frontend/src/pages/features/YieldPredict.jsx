@@ -125,7 +125,7 @@ export default function YieldPredict() {
               </div>
 
               <div style={twoCol}>
-                <div>
+                {/*<div>
                   <label style={labelStyle}>Region</label>
                   <select style={inputStyle} value={form.Region} onChange={(e) => setField("Region", e.target.value)}>
                     {REGIONS.map((r) => (
@@ -134,7 +134,7 @@ export default function YieldPredict() {
                       </option>
                     ))}
                   </select>
-                </div>
+                </div>*/}
 
                 <div>
                   <label style={labelStyle}>Soil Type</label>
