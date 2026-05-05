@@ -10,12 +10,12 @@ import {
 import Container from "../../components/layout/Container";
 import { weatherService } from "../../services/weatherService";
 import { sensorService } from "../../services/sensorService";
+import { AuthContext } from "../../App";
 import { validateAndDeductCredits } from "../../utils/creditValidator";
 
 const DETECT_URL = "/api/plant/detect";
 const ANALYZE_URL = "/api/plant/analyze";
 const DISEASE_URL = "/api/leaf/disease";
-const EXTERNAL_HEALTH_URL = "/api/plant/plantid-health";
 
 // =====================================================================
 //  COMPREHENSIVE RECOMMENDATION ENGINE
@@ -180,40 +180,49 @@ function getDetailedRecommendation(health, disease, plantCategory, diseaseConf =
 //  Converts binary health + disease confidence into a meaningful quality scale
 //  Score: 0–100 → Low (0–40) / Medium (41–75) / High (76–100)
 // =====================================================================
-function calculateHealthQuality(healthClass, healthConf, diseaseType, diseaseConf, externalData = null) {
+function calculateHealthQuality(healthClass, healthConf, diseaseType, diseaseConf) {
   let score;
 
-  // ── 1. PRIMARY: Plant.id API (Industry Standard) ──
-  if (externalData && externalData.source) {
-    if (externalData.is_healthy) {
-      score = Math.round(externalData.health_probability);
-    } else {
-      score = Math.max(0, Math.round(100 - externalData.health_probability)); // Unhealthy -> lower quality
-    }
-  } 
-  // ── 2. FALLBACK: Local GreenAyu Models ──
-  else {
-    const hasCondition = ["pest", "nutrient", "disease"].includes(diseaseType?.toLowerCase());
-    if (hasCondition && diseaseConf > 0.5) {
-      score = Math.round((1 - diseaseConf) * 100);
-    } else if (healthClass?.toLowerCase() === "unhealthy") {
-      score = Math.round((1 - healthConf) * 100);
-    } else {
-      score = Math.round(healthConf * 100);
-    }
+  // ── Local GreenAyu Models ──
+  const hasCondition = ["pest", "nutrient", "disease"].includes(diseaseType?.toLowerCase());
+  if (hasCondition && diseaseConf > 0.5) {
+    score = Math.round((1 - diseaseConf) * 100);
+  } else if (healthClass?.toLowerCase() === "unhealthy") {
+    score = Math.round((1 - healthConf) * 100);
+  } else {
+    score = Math.round(healthConf * 100);
   }
 
-  // ── VISUAL QUALITY COMPENSATION (VIVA FIX) ──
-  // ML models are extremely sensitive to microscopic blemishes or shadows.
-  // To ensure visually good plants aren't incorrectly penalized as "Low Quality",
-  // we apply a progressive curve boost. Low scores get a higher boost to bring them
-  // up to reasonable Medium/High tiers for visually acceptable plants.
-  if (score < 40) {
-    score += 45; // Huge boost for very low scores
-  } else if (score < 75) {
-    score += 25; // Moderate boost for medium scores
+  // ── CONFIDENCE-AWARE QUALITY COMPENSATION ──
+  // ML models can be overly harsh on minor blemishes or shadows.
+  // However, when the disease model is highly confident (>85%), the plant
+  // genuinely has a problem — we should NOT boost aggressively in that case.
+  // Boost is tiered based on disease confidence:
+  //   High confidence (>85%)     → tiny boost (+5)  → stays Low Quality  🔴
+  //   Medium confidence (60–85%) → small boost (+20) → may reach Medium   🟡
+  //   Low confidence / healthy   → full boost        → Medium/High Quality 🟢
+  const isHighConfidenceCondition = hasCondition && diseaseConf > 0.85;
+  const isMediumConfidenceCondition = hasCondition && diseaseConf > 0.6 && diseaseConf <= 0.85;
+
+  if (isHighConfidenceCondition) {
+    // Very confident disease/pest/nutrient → keep score low
+    score += 5;
+  } else if (isMediumConfidenceCondition) {
+    // Moderately confident → small boost only
+    if (score < 40) {
+      score += 20;
+    } else if (score < 75) {
+      score += 10;
+    }
   } else {
-    score += 10; // Minor boost for already high scores
+    // Low confidence condition OR healthy plant → full progressive boost
+    if (score < 40) {
+      score += 45; // Huge boost for borderline/uncertain low scores
+    } else if (score < 75) {
+      score += 25; // Moderate boost for medium scores
+    } else {
+      score += 10; // Minor boost for already high scores
+    }
   }
 
   // Clamp to 0–97 (Avoid claiming absolute certainty in ML)
@@ -245,6 +254,7 @@ function calculateHealthQuality(healthClass, healthConf, diseaseType, diseaseCon
 }
 
 export default function IdentifyHealth() {
+  const auth = React.useContext(AuthContext);
   const [plantName, setPlantName] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [result, setResult] = useState(null);
@@ -292,6 +302,10 @@ export default function IdentifyHealth() {
       return;
     }
 
+    // ── CREDIT VALIDATION ──
+    const canProceed = await validateAndDeductCredits(auth, "Plant ID & Health Check");
+    if (!canProceed) return;
+
     setIsScanning(true);
 
     try {
@@ -323,15 +337,10 @@ export default function IdentifyHealth() {
       const fd2 = new FormData();
       fd2.append("file", file);
 
-      const fd3 = new FormData();
-      fd3.append("file", file);
-
-      // Make the 3 API calls concurrently
-      // Plant.id is a bonus, so we catch its error and don't fail the whole app if offline
-      const [resAnalyze, resDisease, resExternal] = await Promise.all([
+      // Make the 2 API calls concurrently
+      const [resAnalyze, resDisease] = await Promise.all([
         fetch(ANALYZE_URL, { method: "POST", body: fd }),
         fetch(DISEASE_URL, { method: "POST", body: fd2 }),
-        fetch(EXTERNAL_HEALTH_URL, { method: "POST", body: fd3 }).catch(() => null)
       ]);
 
       if (!resAnalyze.ok || !resDisease.ok) {
@@ -341,10 +350,6 @@ export default function IdentifyHealth() {
       const data = await resAnalyze.json();
       const diseaseData = await resDisease.json();
       
-      let externalData = null;
-      if (resExternal && resExternal.ok) {
-        externalData = await resExternal.json();
-      }
 
       const plantCategory = data?.plant_category?.class || "Unknown";
       const plantCatConf = Number(data?.plant_category?.confidence ?? 0);
@@ -375,10 +380,8 @@ export default function IdentifyHealth() {
       }
 
       // ── CALCULATE PLANT HEALTH QUALITY ──
-      // Instead of binary healthy/unhealthy, compute a quality score (0–100)
-      // that maps to High (76–100) / Medium (41–75) / Low (0–40)
-      // Now prioritizes Plant.id data!
-      const healthQuality = calculateHealthQuality(healthClass, healthConf, diseaseType, diseaseConf, externalData);
+      // Compute a quality score (0–100) mapping to High (76–100) / Medium (41–75) / Low (0–40)
+      const healthQuality = calculateHealthQuality(healthClass, healthConf, diseaseType, diseaseConf);
 
       const recommendation = getDetailedRecommendation(healthClass, diseaseType, plantCategory, diseaseConf);
 
@@ -395,7 +398,6 @@ export default function IdentifyHealth() {
         allProbabilities: allProbs,
         weatherContext: weather,
         recommendation,
-        externalVerification: externalData,
       });
     } catch (err) {
       setError(err?.message || "Connectivity issue with AI server.");
@@ -763,12 +765,8 @@ export default function IdentifyHealth() {
                           <div style={qualityDesc}>{result.healthQuality.description}</div>
                         </div>
                       </div>
-                      <div style={qualityScoreBox}>
-                        <span style={{ ...qualityScoreNum, color: result.healthQuality.color }}>
-                          {result.healthQuality.score}
-                        </span>
-                        <span style={qualityScoreLabel}>/ 100</span>
-                      </div>
+                      {/* Score number hidden — quality level label + description communicates
+                          the result clearly without a potentially misleading raw number */}
                     </div>
 
                     {/* Quality Scale Bar */}
@@ -792,11 +790,7 @@ export default function IdentifyHealth() {
                           }}
                         />
                       </div>
-                      <div style={qualityScaleTicks}>
-                        <span style={{ color: '#dc2626' }}>Low (0–40)</span>
-                        <span style={{ color: '#d97706' }}>Medium (41–75)</span>
-                        <span style={{ color: '#16a34a' }}>High (76–100)</span>
-                      </div>
+
                     </div>
 
                     {/* Key Metrics — Species & Condition */}
@@ -883,20 +877,7 @@ export default function IdentifyHealth() {
                       </div>
                     )}
 
-                    {/* Overall Confidence */}
-                    <div style={confidenceSection}>
-                      <div style={confMeta}>
-                        <span style={confLabel}>AI Confidence Level</span>
-                        <span style={confVal}>{result.overallConfidence}%</span>
-                      </div>
-                      <div style={premiumProgress}>
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${result.overallConfidence}%` }}
-                          style={progressGradient}
-                        />
-                      </div>
-                    </div>
+
                   </div>
 
                   {/* Detailed Recommendation Section */}
